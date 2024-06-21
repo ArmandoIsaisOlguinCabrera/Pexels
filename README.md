@@ -17,8 +17,8 @@ Esta aplicación esta desarrollada en SwiftUI para mostrar videos obtenidos desd
 ### Views:
 
 - **ContentView.swift:** La vista principal que muestra la lista de videos y gestiona la visualización del estado de red.
--- **VideoRow.swift:** Dentro de ContentView.swift Define el diseño de cada fila en la lista de videos mostrada en ContentView.
--- **NetworkStatusView.swift:** Dentro de ContentView.swift Es una vista para mostrarse al centro del dispositivo cuendo no se tiene conexion a internet.
+    - **VideoRow.swift:** Dentro de ContentView.swift Define el diseño de cada fila en la lista de videos mostrada en ContentView.
+    - **NetworkStatusView.swift:** Dentro de ContentView.swift Es una vista para mostrarse al centro del dispositivo cuendo no se tiene conexion a internet.
 - **DetailView.swift:** La vista detallada que muestra información específica de cada video como el nombre de usuario, un thumbnail, la duracion y un boton que  permite reproducirlo en una instancia de AVPlayer.
 
 
