@@ -8,7 +8,6 @@
 import Foundation
 import RealmSwift
 
-// Definir los modelos de datos
 struct Video: Identifiable, Decodable {
     let id: Int
     let width: Int
@@ -54,7 +53,6 @@ struct VideoPicture: Decodable {
     let nr: Int
 }
 
-// Definir los modelos de Realm
 class VideoObject: Object {
     @Persisted(primaryKey: true) var id: Int = 0
     @Persisted var width: Int = 0

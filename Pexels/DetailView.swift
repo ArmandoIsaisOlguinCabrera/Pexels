@@ -10,7 +10,6 @@ import AVKit
 
 struct DetailView: View {
     let video: Video
-    @State private var player: AVPlayer?
 
     var body: some View {
         VStack {
@@ -26,30 +25,37 @@ struct DetailView: View {
                 .font(.headline)
                 .padding()
 
-            Button(action: {
-                guard let videoURL = URL(string: video.url) else { return }
-                player = AVPlayer(url: videoURL)
-                player?.play()
-            }) {
-                Text("Reproducir Video")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+            if let videoURL = URL(string: video.videoFiles.first?.link ?? "") {
+                VideoPlayerContainerView(videoURL: videoURL)
+                    .frame(height: 300)
+            } else {
+                Text("Video URL is invalid")
+                    .foregroundColor(.red)
             }
-            .padding()
 
             Spacer()
         }
         .navigationTitle(video.user.name)
-        .onDisappear {
-            player?.pause()
-        }
-        .onAppear {
-            player?.play()
-        }
-        .onDisappear {
-            player?.pause()
+    }
+}
+
+struct RemoteImageView: View {
+    let url: String
+
+    var body: some View {
+        AsyncImage(url: URL(string: url)) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .success(let image):
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            case .failure:
+                Image(systemName: "photo")
+            @unknown default:
+                EmptyView()
+            }
         }
     }
 }

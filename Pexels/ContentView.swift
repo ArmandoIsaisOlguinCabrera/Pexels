@@ -8,49 +8,42 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var videos: [Video] = []
+    @StateObject var viewModel = VideoViewModel()
 
     var body: some View {
         NavigationView {
-            List(videos) { video in
-                NavigationLink(destination: DetailView(video: video)) {
-                    VStack(alignment: .leading) {
-                        Text(video.user.name)
-                            .font(.headline)
-                        Text("Duración: \(video.duration) segundos")
-                            .font(.subheadline)
-                        AsyncImage(url: URL(string: video.image)) { image in
-                            image.resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: UIScreen.main.bounds.width - 32, height: 200)
-                        } placeholder: {
-                            ProgressView()
+            VStack {
+                if viewModel.isConnected {
+                    List(viewModel.videos) { video in
+                        NavigationLink(destination: DetailView(video: video)) {
+                            VideoRow(video: video)
                         }
                     }
+                    .onAppear {
+                        viewModel.fetchVideos()
+                    }
+                } else {
+                    Text("No Internet Connection")
                 }
             }
-            .navigationTitle("Videos de Pexels")
-            .onAppear {
-                Task {
-                    await fetchVideos()
-                }
-            }
+            .navigationTitle("Videos")
         }
     }
+}
 
-    private func fetchVideos() async {
-        // Intentar cargar desde Realm primero
-        videos = RealmManager.shared.loadVideos()
-        if videos.isEmpty {
-            // Si no hay datos en Realm, cargar desde la API
-            let service = APIService()
-            do {
-                let fetchedVideos = try await service.fetchVideos(query: "nature")
-                self.videos = fetchedVideos
-                // Guardar los videos en Realm para persistencia offline
-                RealmManager.shared.saveVideos(fetchedVideos)
-            } catch {
-                print("Error fetching videos: \(error.localizedDescription)")
+struct VideoRow: View {
+    let video: Video
+
+    var body: some View {
+        HStack {
+            AsyncImage(url: URL(string: video.image))
+                .frame(width: 100, height: 100)
+                .cornerRadius(8)
+            VStack(alignment: .leading) {
+                Text(video.user.name)
+                    .font(.headline)
+                Text("Duration: \(video.duration) seconds")
+                    .font(.subheadline)
             }
         }
     }

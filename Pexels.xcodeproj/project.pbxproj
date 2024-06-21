@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4E229CE8A47002693992B693 /* Pods_Pexels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE6CA415A18E6602C79F627 /* Pods_Pexels.framework */; };
+		EC00ABD12C25578D00B0FBCE /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC00ABD02C25578D00B0FBCE /* VideoViewModel.swift */; };
+		EC00ABD32C2557AE00B0FBCE /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC00ABD22C2557AE00B0FBCE /* NetworkMonitor.swift */; };
+		EC00ABD52C25584500B0FBCE /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC00ABD42C25584500B0FBCE /* VideoPlayer.swift */; };
+		EC00ABD72C25593B00B0FBCE /* VideoPlayerContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC00ABD62C25593B00B0FBCE /* VideoPlayerContainerView.swift */; };
 		EC1E17FC2C253EE200818D21 /* PexelsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1E17FB2C253EE200818D21 /* PexelsApp.swift */; };
 		EC1E17FE2C253EE200818D21 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1E17FD2C253EE200818D21 /* ContentView.swift */; };
 		EC1E18002C253EE600818D21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1E17FF2C253EE600818D21 /* Assets.xcassets */; };
@@ -42,6 +46,10 @@
 		2D4FF12C94DF2568FD84AFA6 /* Pods-Pexels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pexels.debug.xcconfig"; path = "Target Support Files/Pods-Pexels/Pods-Pexels.debug.xcconfig"; sourceTree = "<group>"; };
 		4EE6CA415A18E6602C79F627 /* Pods_Pexels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pexels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0756F8ADEDFA771B65279A8 /* Pods-Pexels.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pexels.release.xcconfig"; path = "Target Support Files/Pods-Pexels/Pods-Pexels.release.xcconfig"; sourceTree = "<group>"; };
+		EC00ABD02C25578D00B0FBCE /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
+		EC00ABD22C2557AE00B0FBCE /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		EC00ABD42C25584500B0FBCE /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		EC00ABD62C25593B00B0FBCE /* VideoPlayerContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerContainerView.swift; sourceTree = "<group>"; };
 		EC1E17F82C253EE200818D21 /* Pexels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pexels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC1E17FB2C253EE200818D21 /* PexelsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsApp.swift; sourceTree = "<group>"; };
 		EC1E17FD2C253EE200818D21 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,8 +137,12 @@
 				EC1E17FB2C253EE200818D21 /* PexelsApp.swift */,
 				EC1E17FD2C253EE200818D21 /* ContentView.swift */,
 				EC1E18252C253F7500818D21 /* Video.swift */,
+				EC00ABD42C25584500B0FBCE /* VideoPlayer.swift */,
 				EC1E18272C253F9500818D21 /* APIService.swift */,
+				EC00ABD02C25578D00B0FBCE /* VideoViewModel.swift */,
+				EC00ABD22C2557AE00B0FBCE /* NetworkMonitor.swift */,
 				EC1E18312C2542CC00818D21 /* RealmManager.swift */,
+				EC00ABD62C25593B00B0FBCE /* VideoPlayerContainerView.swift */,
 				EC1E18332C25430F00818D21 /* DetailView.swift */,
 				EC1E17FF2C253EE600818D21 /* Assets.xcassets */,
 				EC1E18012C253EE600818D21 /* Preview Content */,
@@ -338,11 +350,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC1E18342C25430F00818D21 /* DetailView.swift in Sources */,
+				EC00ABD72C25593B00B0FBCE /* VideoPlayerContainerView.swift in Sources */,
+				EC00ABD32C2557AE00B0FBCE /* NetworkMonitor.swift in Sources */,
 				EC1E17FE2C253EE200818D21 /* ContentView.swift in Sources */,
 				EC1E18322C2542CC00818D21 /* RealmManager.swift in Sources */,
 				EC1E17FC2C253EE200818D21 /* PexelsApp.swift in Sources */,
+				EC00ABD12C25578D00B0FBCE /* VideoViewModel.swift in Sources */,
 				EC1E18282C253F9500818D21 /* APIService.swift in Sources */,
 				EC1E18262C253F7500818D21 /* Video.swift in Sources */,
+				EC00ABD52C25584500B0FBCE /* VideoPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,7 +432,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -479,7 +495,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
