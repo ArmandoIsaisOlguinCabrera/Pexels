@@ -14,7 +14,7 @@ class VideoViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     private let service: APIService
-    private let networkMonitor: NetworkMonitor
+    let networkMonitor: NetworkMonitor
 
     init(service: APIService = APIService(), networkMonitor: NetworkMonitor = NetworkMonitor()) {
         self.service = service
