@@ -1,12 +1,8 @@
 # Pexels
 
-## Resumen
-
 Esta aplicación esta desarrollada en SwiftUI para mostrar videos obtenidos desde la API de Pexels. La aplicación consta de dos pantallas principales: una lista de videos y una vista detallada de cada video con la posibilidad de reproducirlo. Se utiliza Realm para la persistencia de datos y XCTest para pruebas unitarias y de interfaz de usuario.
 
-## Estructura
-
-El proyecto se organiza asi:
+## Estructura de la APP
 
 ### Network:
 
@@ -38,11 +34,9 @@ El proyecto se organiza asi:
 ## Documentación de Vistas
 
 ### ContentView.swift
-
-**Resumen:**
 La vista principal que muestra la lista de videos y gestiona la visualización del estado de red.
-
-**Detalles de Implementación:**
+![ContentView](https://drive.google.com/uc?id=1zbdZqjGWH0WceBisebNUoNQfxHDV0GHE)
+**Componentes:**
 - NavigationView: Proporciona soporte de navegación para mostrar una lista de videos.
 - List: Muestra una lista de vistas VideoRow, representando cada elemento de video obtenido de la API.
 - NavigationLink: Permite la navegación a DetailView para cada video seleccionado.
@@ -52,22 +46,27 @@ La vista principal que muestra la lista de videos y gestiona la visualización d
 - Inicialización del ViewModel: Inicializa VideoViewModel para obtener videos y monitorear la conectividad de red.
 
 ### VideoRow.swift
-
-**Resumen:**
 Define el diseño de cada fila en la lista de videos mostrada en ContentView. Muestra información básica sobre cada video, como el nombre del usuario y la duración del video.
 
-**Detalles de Implementación:**
+**Componentes:**
 - HStack: Arregla vistas horizontalmente para mostrar la miniatura del video y detalles del video.
 - AsyncImage: Carga y muestra la miniatura del video de forma asíncrona desde una URL.
 - Text: Muestra el nombre del usuario que subió el video y la duración del video.
 - AccessibilityIdentifier: Agrega identificadores de accesibilidad a elementos para pruebas de interfaz de usuario.
 
+### NetworkStatusView.swift
+Define una vista para mostrarse cuando no hay red.
+![ContentView](https://drive.google.com/uc?id=1hKgqIa09dQ9fghvjdWoi6dOwX0ihVBCj)
+![ContentView](https://drive.google.com/uc?id=1bR34AYOhCgnWoLJAEaLFMf9bNT4B6AnN)
+
+
 ### DetailView.swift
-
-**Resumen:**
 Define la vista detallada para cada video seleccionado. Muestra más información sobre el video y permite al usuario reproducirlo utilizando AVPlayer.
+![ContentView](https://drive.google.com/uc?id=1kwi6kJG3oaW_oIa65932A_ncmL2wgA6C)
+![ContentView](https://drive.google.com/uc?id=14j2lpSOFf5jI0LkaRYWR7CE0utsFmie4)
 
-**Detalles de Implementación:**
+
+**Componentes:**
 - VStack: Arregla vistas verticalmente para mostrar detalles del video y el reproductor de video.
 - AsyncImage: Carga y muestra la miniatura del video de forma asíncrona desde una URL.
 - Text: Muestra información detallada sobre el video, como su duración.
