@@ -8,25 +8,34 @@
 import SwiftUI
 import AVKit
 
+/// A detailed view displaying information about a specific video.
 struct DetailView: View {
+    /// The video object to display details for.
     let video: Video
+    
+    /// The AVPlayer instance used for video playback.
     @State private var player: AVPlayer?
 
     var body: some View {
-        VStack {
+        VStack(spacing: 16) {
+            // Video Thumbnail
             AsyncImage(url: URL(string: video.image)) { image in
-                image.resizable()
+                image
+                    .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: UIScreen.main.bounds.width, height: 300)
+                    .frame(width: UIScreen.main.bounds.width, height: 200)
+                    .clipped() // Ensure the image doesn't exceed its bounds
             } placeholder: {
                 ProgressView()
             }
 
+            // Video Duration
             Text("Duration: \(video.duration) seconds")
                 .font(.headline)
                 .padding()
                 .accessibilityIdentifier("videoDuration")
 
+            // Play Button
             Button(action: {
                 guard let videoFile = video.videoFiles.first(where: { $0.quality == "hd" }) else { return }
                 player = AVPlayer(url: URL(string: videoFile.link)!)
@@ -40,6 +49,7 @@ struct DetailView: View {
             }
             .padding()
 
+            // Video Player
             if let player = player {
                 VideoPlayer(player: player)
                     .frame(height: 300)
@@ -48,31 +58,9 @@ struct DetailView: View {
 
             Spacer()
         }
-        .navigationTitle(video.user.name)
+        .navigationTitle(video.user.name) // Set navigation title to the name of the video user
         .onDisappear {
-            player?.pause()
-        }
-    }
-}
-
-
-struct RemoteImageView: View {
-    let url: String
-
-    var body: some View {
-        AsyncImage(url: URL(string: url)) { phase in
-            switch phase {
-            case .empty:
-                ProgressView()
-            case .success(let image):
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            case .failure:
-                Image(systemName: "photo")
-            @unknown default:
-                EmptyView()
-            }
+            player?.pause() // Pause video playback when view disappears
         }
     }
 }

@@ -7,26 +7,29 @@
 
 import XCTest
 
-final class PexelsUITests: XCTestCase {
+/// UI tests for the Pexels application.
+class PexelsUITests: XCTestCase {
 
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-
+    /// Tests that the content view displays videos.
     func testContentViewDisplaysVideos() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Asegúrate de que la primera celda existe
-        let firstCell = app.cells.matching(identifier: "videoCell_").firstMatch
-        XCTAssertTrue(firstCell.waitForExistence(timeout: 20), "The first video cell should exist")
+        // Wait for the first cell to exist
+        let firstCell = app.tables.cells.firstMatch
+        let exists = NSPredicate(format: "exists == true")
 
-        // Tap en la primera celda
+        expectation(for: exists, evaluatedWith: firstCell, handler: nil)
+        waitForExpectations(timeout: 20, handler: nil)
+        
+        XCTAssertTrue(firstCell.exists, "The first video cell should exist")
+
         firstCell.tap()
         
-        // Asegúrate de que el título del video existe en la vista de detalle
-        let videoDuration = app.staticTexts["videoDuration"]
-        XCTAssertTrue(videoDuration.waitForExistence(timeout: 10), "The video duration should be visible")
+        let videoTitle = app.staticTexts["videoTitle_1"]
+        expectation(for: exists, evaluatedWith: videoTitle, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssertTrue(videoTitle.exists, "The video title should be visible")
     }
 }
-

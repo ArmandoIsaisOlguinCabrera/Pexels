@@ -10,12 +10,23 @@ import RealmSwift
 
 class RealmManager {
     static let shared = RealmManager()
+    private var realm: Realm
 
-    private init() {}
+    private init() {
+        do {
+            self.realm = try Realm()
+        } catch {
+            fatalError("Failed to initialize Realm: \(error.localizedDescription)")
+        }
+    }
+
+    // For testing purposes
+    init(realm: Realm) {
+        self.realm = realm
+    }
 
     func saveVideos(_ videos: [Video]) {
         do {
-            let realm = try Realm()
             try realm.write {
                 realm.add(videos.map(VideoObject.init), update: .modified)
             }
@@ -25,13 +36,7 @@ class RealmManager {
     }
 
     func loadVideos() -> [Video] {
-        do {
-            let realm = try Realm()
-            let videos = realm.objects(VideoObject.self).map { $0.asVideo() }
-            return Array(videos)
-        } catch {
-            print("Error loading videos from Realm: \(error.localizedDescription)")
-            return []
-        }
+        let videoObjects = realm.objects(VideoObject.self)
+        return Array(videoObjects.map { $0.asVideo() })
     }
 }

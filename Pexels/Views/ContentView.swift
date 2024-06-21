@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+/// The main content view displaying a list of videos.
 struct ContentView: View {
+    /// The view model responsible for managing video data.
     @StateObject private var viewModel = VideoViewModel()
 
     var body: some View {
@@ -16,11 +18,13 @@ struct ContentView: View {
                 List(viewModel.videos) { video in
                     NavigationLink(destination: DetailView(video: video)) {
                         VideoRow(video: video)
-                            .accessibilityIdentifier("videoCell_\(video.id)") // Agrega un identificador de accesibilidad
+                            .accessibilityIdentifier("videoCell_\(video.id)")
                     }
                 }
                 .navigationTitle("Videos")
             }
+            
+            // Network Status Indicator
             if !viewModel.networkMonitor.isConnected {
                 NetworkStatusView()
                     .padding()
@@ -34,22 +38,28 @@ struct ContentView: View {
     }
 }
 
+/// A view representing a single row in the video list.
 struct VideoRow: View {
+    /// The video object to display in the row.
     let video: Video
 
     var body: some View {
         HStack {
+            // Video Thumbnail
             AsyncImage(url: URL(string: video.image)) { image in
-                image.resizable()
+                image
+                    .resizable()
                     .frame(width: 50, height: 50)
                     .cornerRadius(8)
             } placeholder: {
                 ProgressView()
             }
+            
+            // Video Details
             VStack(alignment: .leading) {
                 Text(video.user.name)
                     .font(.headline)
-                    .accessibilityIdentifier("videoTitle_\(video.id)") // Agrega un identificador de accesibilidad
+                    .accessibilityIdentifier("videoTitle_\(video.id)") // Accessibility identifier for video title
                 Text("Duration: \(video.duration) seconds")
                     .font(.subheadline)
             }
@@ -57,6 +67,7 @@ struct VideoRow: View {
     }
 }
 
+/// A view indicating the network status.
 struct NetworkStatusView: View {
     var body: some View {
         Text("No Internet Connection")

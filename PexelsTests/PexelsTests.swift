@@ -6,39 +6,45 @@
 //
 
 import XCTest
-import Combine
-
+import RealmSwift
 @testable import Pexels
 
+/// Unit tests for the Pexels application.
 class PexelsTests: XCTestCase {
-    var viewModel: VideoViewModel!
-    var cancellables: Set<AnyCancellable>!
 
-    override func setUp() {
-        super.setUp()
-        viewModel = VideoViewModel()
-        cancellables = Set<AnyCancellable>()
+    var realm: Realm!
+    var realmManager: RealmManager!
+    var mockService: MockAPIService!
+
+    /// Sets up the test environment.
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        var config = Realm.Configuration()
+        config.inMemoryIdentifier = self.name
+        realm = try Realm(configuration: config)
+        realmManager = RealmManager(realm: realm)
+        mockService = MockAPIService()
     }
 
-    override func tearDown() {
-        viewModel = nil
-        cancellables = nil
-        super.tearDown()
+    /// Tears down the test environment.
+    override func tearDownWithError() throws {
+        realm = nil
+        realmManager = nil
+        mockService = nil
+        try super.tearDownWithError()
     }
 
-    func testFetchVideos() {
-        let expectation = XCTestExpectation(description: "Fetch videos from API")
+    /// Tests fetching videos using the mock service.
+    func testFetchVideos() async throws {
+        let videos = try await mockService.fetchVideos(query: "nature")
+        XCTAssertFalse(videos.isEmpty, "Fetched videos should not be empty")
+    }
 
-        viewModel.$videos
-            .dropFirst()
-            .sink { videos in
-                XCTAssertFalse(videos.isEmpty, "Videos should not be empty")
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-
-        viewModel.fetchVideos()
-
-        wait(for: [expectation], timeout: 5.0)
+    /// Tests saving and loading videos in Realm.
+    func testSaveAndLoadVideos() {
+        let videos = [Video(id: 1, width: 1920, height: 1080, url: "https://example.com", image: "https://example.com/image.jpg", duration: 120, user: User(id: 1, name: "User", url: "https://example.com"), videoFiles: [], videoPictures: [])]
+        realmManager.saveVideos(videos)
+        let loadedVideos = realmManager.loadVideos()
+        XCTAssertEqual(videos.count, loadedVideos.count, "Loaded videos should match the saved videos")
     }
 }

@@ -1,6 +1,10 @@
-platform :ios, '14.0'
-use_frameworks!
-
 target 'Pexels' do
+  use_frameworks!
+
   pod 'RealmSwift'
+
+  target 'PexelsTests' do
+    inherit! :search_paths
+    pod 'RealmSwift'
+  end
 end
